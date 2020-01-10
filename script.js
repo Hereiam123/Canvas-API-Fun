@@ -56,6 +56,28 @@ const ctx = canvas.getContext("2d");
 // ctx.fill();
 
 //Arc (circular)
+//Draw a smile!
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
 ctx.beginPath();
-ctx.arc(200, 200, 50, 0, Math.PI * 2, true);
-ctx.fill();
+ctx.arc(centerX, centerY, 200, 0, Math.PI * 2, true);
+
+//Move to mouth of smile
+ctx.moveTo(centerX + 100, centerY);
+
+//Draw the mouth smile
+ctx.arc(centerX, centerY, 100, 0, Math.PI, false);
+
+//Move to left eye
+ctx.moveTo(centerX - 60, centerY - 80);
+
+//Draw left eye
+ctx.arc(centerX - 80, centerY - 80, 20, 0, Math.PI * 2);
+
+//Move to right eye
+ctx.moveTo(centerX + 100, centerY - 80);
+
+//Draw right eye
+ctx.arc(centerX + 80, centerY - 80, 20, 0, Math.PI * 2);
+
+ctx.stroke();
