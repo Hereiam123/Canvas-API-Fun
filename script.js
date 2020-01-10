@@ -93,48 +93,116 @@ const ctx = canvas.getContext("2d");
 
 //Animations
 
-//Animation 1
+//Animation 1 - Bouncing circle
 //dx, dy are increments of movement on those axes
-const circle1 = {
-  x: 200,
+// const circle1 = {
+//   x: 200,
+//   y: 200,
+//   size: 30,
+//   dx: 5,
+//   dy: 4
+// };
+
+// function drawCircle(circle) {
+//   ctx.beginPath();
+//   ctx.arc(circle.x, circle.y, circle.size, 0, Math.PI * 2);
+//   ctx.fillStyle = "purple";
+//   ctx.fill();
+// }
+
+// function updateCanvas() {
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   drawCircle(circle1);
+
+//   //Change position of circle
+//   circle1.x += circle1.dx;
+//   circle1.y += circle1.dy;
+
+//   //Detect edge of canvas for canvas
+//   //edge collision detection
+
+//   //Detect side walls
+//   if (circle1.x + circle1.size > canvas.width || circle1.x - circle1.size < 0) {
+//     circle1.dx *= -1;
+//   }
+
+//   //Detect top and bottom walls
+//   if (
+//     circle1.y + circle1.size > canvas.height ||
+//     circle1.y - circle1.size < 0
+//   ) {
+//     circle1.dy *= -1;
+//   }
+
+//   requestAnimationFrame(updateCanvas);
+// }
+
+// updateCanvas();
+
+//Animation 2 - Character
+//Make sure to add your own image source into index.html image tag
+const image = document.getElementById("source");
+const player = {
+  w: 50,
+  h: 70,
+  x: 20,
   y: 200,
-  size: 30,
-  dx: 5,
-  dy: 4
+  speed: 5,
+  dx: 0,
+  dy: 0
 };
 
-function drawCircle(circle) {
-  ctx.beginPath();
-  ctx.arc(circle.x, circle.y, circle.size, 0, Math.PI * 2);
-  ctx.fillStyle = "purple";
-  ctx.fill();
-}
-
-function updateCanvas() {
+function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawCircle(circle1);
-
-  //Change position of circle
-  circle1.x += circle1.dx;
-  circle1.y += circle1.dy;
-
-  //Detect edge of canvas for canvas
-  //edge collision detection
-
-  //Detect side walls
-  if (circle1.x + circle1.size > canvas.width || circle1.x - circle1.size < 0) {
-    circle1.dx *= -1;
-  }
-
-  //Detect top and bottom walls
-  if (
-    circle1.y + circle1.size > canvas.height ||
-    circle1.y - circle1.size < 0
-  ) {
-    circle1.dy *= -1;
-  }
-
-  requestAnimationFrame(updateCanvas);
 }
 
-updateCanvas();
+function drawPlayer() {
+  ctx.drawImage(image, player.x, player.y, player.w, player.h);
+}
+
+function setNewPosition() {
+  player.x += player.dx;
+  player.y += player.dy;
+}
+
+function keyDown(e) {
+  if (e.key === "ArrowRight" || e.key === "Right") {
+    moveRight();
+  } else if (e.key === "ArrowLeft" || e.key === "Left") {
+    moveLeft();
+  } else if (e.key === "ArrowUp" || e.key === "Up") {
+    moveUp();
+  } else if (e.key === "ArrowDown" || e.key === "Down") {
+    moveDown();
+  }
+}
+
+function moveUp() {
+  player.dy = -player.speed;
+}
+
+function moveDown() {
+  player.dy = player.speed;
+}
+
+function moveRight() {
+  player.dx = player.speed;
+}
+
+function moveLeft() {
+  player.dx = -player.speed;
+}
+
+function keyUp(e) {}
+
+function updatePlayer() {
+  clearCanvas();
+  drawPlayer();
+  setNewPosition();
+  requestAnimationFrame(updatePlayer);
+}
+
+updatePlayer();
+
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
