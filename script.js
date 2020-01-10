@@ -55,29 +55,69 @@ const ctx = canvas.getContext("2d");
 // ctx.fillStyle = "teal";
 // ctx.fill();
 
-//Arc (circular)
-//Draw a smile!
-const centerX = canvas.width / 2;
-const centerY = canvas.height / 2;
-ctx.beginPath();
-ctx.arc(centerX, centerY, 200, 0, Math.PI * 2, true);
+// //Arc (circular)
+// //Draw a smile!
+// const centerX = canvas.width / 2;
+// const centerY = canvas.height / 2;
+// ctx.beginPath();
+// ctx.arc(centerX, centerY, 200, 0, Math.PI * 2, true);
 
-//Move to mouth of smile
-ctx.moveTo(centerX + 100, centerY);
+// //Move to mouth of smile
+// ctx.moveTo(centerX + 100, centerY);
 
-//Draw the mouth smile
-ctx.arc(centerX, centerY, 100, 0, Math.PI, false);
+// //Draw the mouth smile
+// ctx.arc(centerX, centerY, 100, 0, Math.PI, false);
 
-//Move to left eye
-ctx.moveTo(centerX - 60, centerY - 80);
+// //Move to left eye
+// ctx.moveTo(centerX - 60, centerY - 80);
 
-//Draw left eye
-ctx.arc(centerX - 80, centerY - 80, 20, 0, Math.PI * 2);
+// //Draw left eye
+// ctx.arc(centerX - 80, centerY - 80, 20, 0, Math.PI * 2);
 
-//Move to right eye
-ctx.moveTo(centerX + 100, centerY - 80);
+// //Move to right eye
+// ctx.moveTo(centerX + 100, centerY - 80);
 
-//Draw right eye
-ctx.arc(centerX + 80, centerY - 80, 20, 0, Math.PI * 2);
+// //Draw right eye
+// ctx.arc(centerX + 80, centerY - 80, 20, 0, Math.PI * 2);
 
-ctx.stroke();
+// //Quadratic curve
+// ctx.moveTo(75, 25);
+// ctx.quadraticCurveTo(25, 25, 25, 62.5);
+// ctx.quadraticCurveTo(25, 100, 50, 100);
+// ctx.quadraticCurveTo(50, 120, 30, 125);
+// ctx.quadraticCurveTo(60, 120, 65, 100);
+// ctx.quadraticCurveTo(125, 100, 125, 62.5);
+// ctx.quadraticCurveTo(125, 25, 75, 25);
+
+// ctx.stroke();
+
+//Animations
+
+//Animation 1
+//dx, dy are increments of movement on those axes
+const circle1 = {
+  x: 200,
+  y: 200,
+  size: 30,
+  dx: 5,
+  dy: 4
+};
+
+function drawCircle(circle) {
+  ctx.beginPath();
+  ctx.arc(circle.x, circle.y, circle.size, 0, Math.PI * 2);
+  ctx.fillStyle = "purple";
+  ctx.fill();
+}
+
+function updateCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawCircle(circle1);
+
+  //Change position of circle
+  circle1.x += circle1.dx;
+
+  requestAnimationFrame(updateCanvas);
+}
+
+updateCanvas();
