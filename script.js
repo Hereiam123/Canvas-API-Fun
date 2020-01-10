@@ -116,6 +116,23 @@ function updateCanvas() {
 
   //Change position of circle
   circle1.x += circle1.dx;
+  circle1.y += circle1.dy;
+
+  //Detect edge of canvas for canvas
+  //edge collision detection
+
+  //Detect side walls
+  if (circle1.x + circle1.size > canvas.width || circle1.x - circle1.size < 0) {
+    circle1.dx *= -1;
+  }
+
+  //Detect top and bottom walls
+  if (
+    circle1.y + circle1.size > canvas.height ||
+    circle1.y - circle1.size < 0
+  ) {
+    circle1.dy *= -1;
+  }
 
   requestAnimationFrame(updateCanvas);
 }
